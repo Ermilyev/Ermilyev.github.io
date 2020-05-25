@@ -1,5 +1,7 @@
-const text = document.querySelectorAll("#text path")
-
-text.forEach(function (text, i) {
-    console.log(`Letter ${i} is ${text.getTotalLength()}`);
-  });
+var container = document.getElementById('container');
+window.onmousemove = function(e){
+    var x = - e.clientX/5,
+        y = - e.clientY/5;
+    container.style.backgroundPositionX = x + 'px';
+    container.style.backgroundPositionY = y + 'px';
+}
