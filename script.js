@@ -22,6 +22,7 @@ function createEffect(x, y, emoji) {
   const effect = document.createElement("div");
   effect.classList.add("effect");
   effect.textContent = emoji;
+  effect.style.position = "absolute";
   effect.style.left = `${x}px`;
   effect.style.top = `${y}px`;
   document.body.appendChild(effect);
@@ -61,18 +62,31 @@ function summonKozlovsky() {
   showMessage("Козловский появился! 😡");
   moveImage(kozlovsky);
 
-  if (!kozlovskyInterval) {
-    kozlovskyInterval = setInterval(() => {
-      if (score > 0) {
-        score--;
-        updateUI();
-      } else {
-        clearInterval(kozlovskyInterval);
-        kozlovsky.style.display = "none";
-        kozlovskyActive = false;
-      }
-    }, 1000);
-  }
+  clearInterval(kozlovskyInterval);
+  kozlovskyInterval = setInterval(() => {
+    if (score > 0) {
+      score--;
+      updateUI();
+    } else {
+      clearInterval(kozlovskyInterval);
+      kozlovsky.style.display = "none";
+      kozlovskyActive = false;
+    }
+  }, 1000);
+}
+
+function defeatKozlovsky(e) {
+  if (!kozlovskyActive) return;
+  kozlovskyActive = false;
+  kozlovsky.style.display = "none";
+  clearInterval(kozlovskyInterval);
+  clearTimeout(kozlovskyTimeout);
+  boikova.src = boikovaHappy;
+  score += 5;
+  showMessage("Козловский побеждён! 🏆");
+  createEffect(e.clientX, e.clientY, "🏆");
+  updateUI();
+  kozlovskyTimeout = setTimeout(summonKozlovsky, 10000);
 }
 
 boikova.addEventListener('click', (e) => {
@@ -81,6 +95,10 @@ boikova.addEventListener('click', (e) => {
   createEffect(e.clientX, e.clientY, "❤️");
   moveImage(boikova);
   updateUI();
+  
+  if (score >= 10 && !kozlovskyActive) {
+    summonKozlovsky();
+  }
 });
 
 kozlovsky.addEventListener('click', defeatKozlovsky);
@@ -90,14 +108,23 @@ exchangeBtn.addEventListener('click', () => {
     score -= 25;
     superHearts++;
     showMessage("Обмен состоялся! 💖");
+    createEffect(window.innerWidth / 2, window.innerHeight / 2, "💖");
     updateUI();
   }
 });
 
-jumpBtn.addEventListener('click', () => {
+jumpBtn.addEventListener('click', (e) => {
   if (superHearts >= 10) {
     superHearts -= 10;
-    goldMedals += Math.random() < 0.5 ? 1 : 0;
+    let success = Math.random() < 0.5;
+    if (success) {
+      goldMedals++;
+      showMessage("Олимпиада в кармане! 🥇");
+      createEffect(e.clientX, e.clientY, "🥇");
+    } else {
+      showMessage("Попробуй ещё раз! 😵");
+      createEffect(e.clientX, e.clientY, "😵");
+    }
     updateUI();
   }
 });
