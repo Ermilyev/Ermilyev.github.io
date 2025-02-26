@@ -1,4 +1,3 @@
-/* Общие стили */
 * {
   margin: 0;
   padding: 0;
@@ -20,11 +19,9 @@ h1 {
   font-size: 2rem;
   font-weight: bold;
   color: #ff4081;
-  text-shadow: 2px 2px 4px rgba(255, 0, 150, 0.5);
   margin-top: 10px;
 }
 
-/* Игровая зона */
 .container {
   position: relative;
   width: 90vw;
@@ -48,10 +45,11 @@ h1 {
   display: none;
 }
 
-/* Кнопки */
 .buttons {
-  display: flex;
-  justify-content: space-around;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   padding: 10px;
 }
@@ -67,9 +65,6 @@ button {
   font-weight: bold;
   color: white;
 }
-button:hover {
-  transform: scale(1.1);
-}
 button:disabled {
   background: #cccccc;
   cursor: not-allowed;
@@ -78,7 +73,6 @@ button:disabled {
 #exchange-btn { background: #ff69b4; }
 #jump-btn { background: #ffcc00; }
 
-/* Сообщения */
 .message {
   font-size: 1.5rem;
   font-weight: bold;
@@ -86,15 +80,4 @@ button:disabled {
   margin-bottom: 10px;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
-}
-
-/* Эффект смайликов */
-.effect {
-  position: absolute;
-  font-size: 36px;
-  animation: floatUp 1s ease-out forwards;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-80px); opacity: 0; }
 }
