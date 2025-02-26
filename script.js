@@ -7,8 +7,8 @@ const jumpBtn = document.getElementById("jump-btn");
 let score = 0, superHearts = 0, goldMedals = 0;
 let kozlovskyActive = false, kozlovskyInterval;
 
-const boikovaHappy = "img/boikova-happy.jpg";
-const boikovaSad = "img/boikova-sad.jpg";
+const boikovaHappy = "img/boikova-happy.png";
+const boikovaSad = "img/boikova-sad.png";
 
 function showMessage(text) {
   message.textContent = text;
@@ -42,6 +42,34 @@ function updateUI() {
   jumpBtn.disabled = superHearts < 10;
 }
 
+function summonKozlovsky() {
+  if (kozlovskyActive) return;
+  kozlovskyActive = true;
+  kozlovsky.style.display = "block";
+  boikova.src = boikovaSad;
+  showMessage("Козловский появился! 😡");
+  moveImage(kozlovsky);
+  kozlovskyInterval = setInterval(() => {
+    if (score > 0) {
+      score--;
+      updateUI();
+    }
+  }, 1000);
+}
+
+function defeatKozlovsky(e) {
+  if (!kozlovskyActive) return;
+  kozlovskyActive = false;
+  clearInterval(kozlovskyInterval);
+  kozlovsky.style.display = "none";
+  boikova.src = boikovaHappy;
+  score += 5;
+  showMessage("Козловский побеждён! 🏆");
+  createEffect(e.clientX, e.clientY, "🏆");
+  updateUI();
+  setTimeout(summonKozlovsky, 10000);
+}
+
 boikova.addEventListener('click', (e) => {
   score++;
   showMessage("Ты сделал её день лучше! ❤️");
@@ -49,5 +77,7 @@ boikova.addEventListener('click', (e) => {
   moveImage(boikova);
   updateUI();
 });
+
+kozlovsky.addEventListener('click', defeatKozlovsky);
 
 document.addEventListener('DOMContentLoaded', updateUI);
