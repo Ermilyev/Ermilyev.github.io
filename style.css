@@ -1,68 +1,114 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
-*
-{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins',sans-serif;
+/* Общие стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
-body
-{
-    background: linear-gradient(45deg, #8500ff, #5acaff);
-    height: 100vh;
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  background: linear-gradient(180deg, #ffdde1, #ffb6c1);
+  overflow: hidden;
+  text-align: center;
+  user-select: none;
 }
-#container
-{
-    position: absolute;
-   /* top: 10%;
-    left: 10%;
-    right: 10%;
-    bottom: 10%; */
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url('img/backgtound.png'), #151729;
-    box-shadow: 0 15px 30px rgba(0,0,0,.5);
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff4081;
+  text-shadow: 2px 2px 4px rgba(255, 0, 150, 0.5);
+  margin-top: 10px;
 }
-#container .content
-{
-    max-width: 600px;
-    text-align: center;
+
+/* Игровая зона */
+.container {
+  position: relative;
+  width: 90vw;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+  background: radial-gradient(circle, #fff0f3, #ffb6c1);
+  box-shadow: 0px 0px 20px rgba(255, 0, 150, 0.3);
 }
-#container .content h2
-{
-    font-size: 18vh;
-    color: #fff;
-    line-height: 1em;
+.image, .kozlovsky {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  transition: left 0.5s ease-in-out, top 0.5s ease-in-out;
 }
-#container .content h4  
-{
-    position: relative;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    color: #111;
-    background: #fff;
-    font-weight: 300;
-    padding: 10px 20px;
-    display: inline-block;
+.kozlovsky {
+  display: none;
 }
-#container .content p 
-{
-    color: #fff;
-    font-size: 1.2em;
+
+/* Кнопки */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px;
 }
-#container .content a 
-{
-    position: relative;
-    display: inline-block;
-    padding: 10px 25px;
-    background: #ff0562;
-    color: #fff;
-    text-decoration: none;
-    margin-top: 25px;
-    border-radius: 25px;    
-    border-bottom: 4px solid #d00d56;
+button {
+  flex: 1;
+  margin: 5px;
+  padding: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  transition: transform 0.2s ease, background 0.3s ease;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+  transform: scale(1.1);
+}
+button:active {
+  transform: scale(0.95);
+}
+button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+#exchange-btn { background: #ff69b4; }
+#jump-btn { background: #ffcc00; }
+
+/* Сообщения */
+.message {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff4081;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Эффект смайликов */
+.effect {
+  position: absolute;
+  font-size: 36px;
+  animation: floatUp 1s ease-out forwards;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-80px); opacity: 0; }
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 600px) {
+  h1 { font-size: 1.4rem; }
+  button { font-size: 1.2rem; padding: 10px; margin: 3px; }
+  .container { width: 95vw; height: 50vh; }
+  .image, .kozlovsky { width: 100px; height: 100px; }
+  .message { font-size: 1.2rem; margin-bottom: 5px; }
 }
